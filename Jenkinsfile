@@ -18,16 +18,14 @@ pipeline{
             }
 
         }
-        stage('Push Docker Image to DockerHub'){
+        stage('Run Docker Image on Container'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerhubpass')]) {
-                        bat 'docker login -u abinashsid -p %dockerhubpass%'
-                    }
-                    bat 'docker push abinashsid/docker-jenkins-demo.jar'
+                    bat 'docker run -p 9090:8080 abinashsid/docker-jenkins-demo.jar'
                 }
             }
 
         }
+
     }
 }
